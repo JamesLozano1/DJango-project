@@ -6,10 +6,19 @@ class Project( models.Model ):
     '''
     name = models.CharField(max_length=50, help_text='Ingrese el nombre del projecto')
 
+    def __str__(self):
+        return self.name
+
 class Task(models.Model):
     title = models.CharField(max_length=200, help_text='Ingrese el título de la tarea')
     description = models.CharField(max_length=200, help_text='Ingrese la descripción de la tarea')
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
+
+    # def __str__(self):
+        # return self.title + ' - ' + str(self.project.name)
+
+    def __str__(self) -> str:
+        return self.title + ' - ' + self.project.name
 
 #CharField:  Almacena una cadena de caracteres de longitud limitada.
 
