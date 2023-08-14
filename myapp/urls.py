@@ -7,5 +7,7 @@ urlpatterns = [
     path('holaMundo/<str:username>', views.holaMundo),
     path('multiplicacion/<int:numero>', views.multiplicacion),
     path('projects', views.projects),
+    path('task', views.taks),
     path('taks/<int:id>', views.taks),
+    path('ProjectName/<str:name>', views.BuscarNombre),
 ]

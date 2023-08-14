@@ -3,7 +3,10 @@ from django.http import HttpResponse, JsonResponse
 from .models import Project, Task
 
 def index( request ):
-    return HttpResponse('<h1>Index page</h1>')
+    title = "Django Project!!"
+    return render(request, 'index.html',{
+        'title':title
+    })
 
 def holaMundo( request, username ):
     print(username)
@@ -23,15 +26,37 @@ def multiplicacion( request, numero ):
 #Listado de todos los projectos 
 def projects( request ):
     projects = list(Project.objects.values())
-    return JsonResponse(projects, safe=False)
+    # return JsonResponse(projects, safe=False)
+    title = "Project: Este es un titulo desde views"
+    return render(request, 'projects.html', {
+        'title':title,
+        'projects':projects
+    })
+
 
 #Listado de Tarea
-def taks( request, id ):
+# def taks( request, id ):
+#     # task = Task.objects.get(id=id)
+#     # task = get_object_or_404(Task, id=id)
+#     # return HttpResponse("<h1>Taks: %s</h1>" % task.title)
+#     return render(request, 'task.html')
+
+def taks( request ):
     # task = Task.objects.get(id=id)
-    task = get_object_or_404(Task, id=id)
-    return HttpResponse("<h1>Taks: %s</h1>" % task.title)
+    # task = get_object_or_404(Task, id=id)
+    # return HttpResponse("<h1>Taks: %s</h1>" % task.title)
+    title = "Task: Este es un titulo desde views"
+    tasks = Task.objects.all()
+    return render(request, 'task.html', {
+        'title': title,
+        'tasks':tasks
+    })
+
 
 def BuscarNombre( request, name ):
-    return
+    # project = Project.objects.get(name=name)
+    nombre = get_object_or_404(Project, name=name)
+    return HttpResponse('<h1>Se ha encontrado el Projecto %s</h1>' % nombre)
+        
 # //HECHO CREAR UNA VISTA QUE RESIBA UN NUMBERO ENTERO QUE VENGA COMO PARAMETRO COMO URL LE SUME 100 Y LO MULTIPLIQUE POR 2
 # buscar un projecto por el nombre 

@@ -13,6 +13,7 @@ class Task(models.Model):
     title = models.CharField(max_length=200, help_text='Ingrese el título de la tarea')
     description = models.CharField(max_length=200, help_text='Ingrese la descripción de la tarea')
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    done = models.BooleanField(default=False)
 
     # def __str__(self):
         # return self.title + ' - ' + str(self.project.name)
