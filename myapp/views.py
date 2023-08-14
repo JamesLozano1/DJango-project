@@ -1,7 +1,7 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, JsonResponse
 from .models import Project, Task
-from .forms import createNewTask
+from .forms import CreateNewTask
 
 def index( request ):
     title = "Django Project!!"
@@ -60,9 +60,17 @@ def BuscarNombre( request, name ):
     return HttpResponse('<h1>Se ha encontrado el Projecto %s</h1>' % nombre)
 
 def create_task( request ):
-    return render( request, 'create_task.html', {
-        'form':createNewTask(),
-    })
+    if request.method == 'GET':    
+        return render( request, 'create_task.html', {
+            'form':CreateNewTask()
+        })
+    else: 
+        title = request.POST['title']
+        description = request.POST['description']
+        project_id = 1
+        Task.objects.create(title=title, description=description, project_id=project_id)
+        return redirect('/task')
+    
         
 # //HECHO CREAR UNA VISTA QUE RESIBA UN NUMBERO ENTERO QUE VENGA COMO PARAMETRO COMO URL LE SUME 100 Y LO MULTIPLIQUE POR 2
 # buscar un projecto por el nombre 
