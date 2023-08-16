@@ -29,7 +29,7 @@ def projects( request ):
     projects = list(Project.objects.values())
     # return JsonResponse(projects, safe=False)
     title = "Project: Este es un titulo desde views"
-    return render(request, 'projects.html', {
+    return render(request, 'projects/projects.html', {
         'title':title,
         'projects':projects
     })
@@ -48,7 +48,7 @@ def taks( request ):
     # return HttpResponse("<h1>Taks: %s</h1>" % task.title)
     title = "Task: Este es un titulo desde views"
     tasks = Task.objects.all()
-    return render(request, 'task.html', {
+    return render(request, 'tasks/task.html', {
         'title': title,
         'tasks':tasks
     })
@@ -61,25 +61,33 @@ def BuscarNombre( request, name ):
 
 def create_task( request ):
     if request.method == 'GET':    
-        return render( request, 'create_task.html', {
+        return render( request, 'tasks/create_task.html', {
             'form':CreateNewTask()
         })
     else: 
         title = request.POST['title']
         description = request.POST['description']
-        project_id = 1
+        project_id = request.POST['project_id']
         Task.objects.create(title=title, description=description, project_id=project_id)
         return redirect('/task')
 
 def create_project( request ):
     if request.method == 'GET':    
-        return render( request, 'create_project.html', {
+        return render( request, 'projects/create_project.html', {
             'form':createNewProyect(),
         })
     else: 
         name = request.POST['name']
         Project.objects.create(name=name)
         return redirect('/projects')
+
+def tasks_project( request, project_id):
+    project = Project.objects.get(id=project_id)
+    tasks = Task.objects.all().filter(project_id=project_id)
+    return render( request, 'projects/tasks.html', {
+        'project':project.name,
+        'tasks': tasks,
+    })
     
         
 # //HECHO CREAR UNA VISTA QUE RESIBA UN NUMBERO ENTERO QUE VENGA COMO PARAMETRO COMO URL LE SUME 100 Y LO MULTIPLIQUE POR 2

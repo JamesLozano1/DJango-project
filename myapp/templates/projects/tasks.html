@@ -1,0 +1,12 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+    <h1>Tareas del proyecto {{ project.title }}</h1>
+    <ul>
+        {% for task in tasks %}
+            <li><h1>{{ task.title }}</h1></li><br>
+        {% endfor %}
+    </ul>
+{% endblock %}
+
+<!-- gestionar los datos de la biblioteca de una universidad de cada biblioteca interesa el nombre de la biblioteca y su ubicacion en la universidad cada biblioteca tiene una coleccion de libros en donde para cada libro interesa saber el nombre, el isbn, nombre autor y el estado que el estado puede ser en sala o prestado interesa poder agregar nuevos libros a la coleccion de la biblioteca,    traer el modelo de la base de datos y las historias de usuario y codificar todo mañana-->

@@ -1,7 +1,6 @@
 {% extends 'layouts/base.html' %}
 {% block content %}
 
-
 <h1>{{title}}</h1>
 <!-- Jinja Loops -->
 <!-- {{projects}} -->
@@ -10,9 +9,10 @@
 
 
 <article>
-    <h2>{{ project.name }}</h2>
+    <h2>{{ project.name }} <a href="tasks_project/{{ project.id }}">👁️</a></h2>
 </article>
 
-{% endfor %}
 
+{% endfor %}
 {% endblock %}
+
