@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, JsonResponse
 from .models import Project, Task
-from .forms import CreateNewTask
+from .forms import CreateNewTask, createNewProyect
 
 def index( request ):
     title = "Django Project!!"
@@ -70,6 +70,16 @@ def create_task( request ):
         project_id = 1
         Task.objects.create(title=title, description=description, project_id=project_id)
         return redirect('/task')
+
+def create_project( request ):
+    if request.method == 'GET':    
+        return render( request, 'create_project.html', {
+            'form':createNewProyect(),
+        })
+    else: 
+        name = request.POST['name']
+        Project.objects.create(name=name)
+        return redirect('/projects')
     
         
 # //HECHO CREAR UNA VISTA QUE RESIBA UN NUMBERO ENTERO QUE VENGA COMO PARAMETRO COMO URL LE SUME 100 Y LO MULTIPLIQUE POR 2
